@@ -11,6 +11,7 @@
 <label for="duration">Długość</label><select id="duration"><option value="30">30 sekund</option><option value="45">45 sekund</option><option value="60">60 sekund</option></select>
 <label for="notes">Koncepcja / wskazówki</label><textarea id="notes" placeholder="Np. nowoczesny salon, elegancka reklama, prezentacja wymiennika ciepła..."></textarea>
 <div class="actions"><button onclick="saveProject()">Zapisz projekt na tym urządzeniu</button><button class="secondary" onclick="exportProject()">Pobierz brief produkcyjny JSON</button></div><p id="status" class="note" role="status"></p></section>
+<section class="card" style="margin-top:20px" id="cost-panel"><h2>💵 Kalkulator kosztów Runway</h2><p class="muted">Sprawdź koszt pojedynczego klipu AI przed generowaniem. Cała reklama 30–60 sekund wymaga kilku klipów i osobnego montażu.</p><label for="runway-model">Model wideo</label><select id="runway-model"><option value="gen4_turbo">Gen-4 Turbo — 0,05 USD/s (założenie kalkulatora)</option><option value="gen4.5">Gen-4.5 — 0,12 USD/s (założenie kalkulatora)</option></select><label for="clip-duration">Długość klipu</label><select id="clip-duration"><option value="5">5 sekund</option><option value="10">10 sekund</option></select><div class="actions"><button type="button" onclick="estimateCost()">Sprawdź koszt klipu</button></div><p id="cost-result" class="note" role="status">Limit pojedynczego klipu: 2 USD. Generowanie płatne pozostaje wyłączone.</p><p class="note">Kwoty są szacunkowe; nie uwzględniają ponownych prób, montażu ani audio. Kalkulator nie stanowi twardego limitu wydatków na koncie Runway.</p></section>
 <section class="card" style="margin-top:20px"><h2>Etapy produkcji</h2><div class="step"><strong>1. Brief i dane produktu</strong> — dostępne w tej wersji.</div><div class="step"><strong>2. Scenariusz i ujęcia</strong> — istniejący storyboard w Video Studio 2.0.</div><div class="step"><strong>3. Generowanie ujęć</strong> — wymaga integracji z usługą wideo AI lub narzędziem 3D.</div><div class="step"><strong>4. Lektor, muzyka i montaż</strong> — do wdrożenia.</div><div class="step"><strong>5. Eksport MP4</strong> — do wdrożenia.</div></section></main>
 <script>
 let mode="commercial",catalog=[];const $=id=>document.getElementById(id);
@@ -22,4 +23,13 @@ function choose(value){mode=value;$("commercial").classList.toggle("selected",mo
 function getProject(){const p=catalog.find(x=>String(x.id)===select.value);return {version:"3.0",type:mode,productId:p?.id||null,productName:p?.name||"",sku:p?.sku||"",productPhoto:p?.photo||"",productDescription:p?.description||"",technicalData:p?.specs||"",language:$("language").value,format:$("format").value,durationSeconds:Number($("duration").value),notes:$("notes").value,productionStatus:"brief-only",createdAt:new Date().toISOString()}}
 function saveProject(){const project=getProject();try{localStorage.setItem("ventini-last-production-project",JSON.stringify(project));$("status").textContent="Projekt zapisany lokalnie. Generowanie MP4 nie jest jeszcze dostępne."}catch{$("status").textContent="Nie udało się zapisać projektu w przeglądarce."}}
 function exportProject(){const data=JSON.stringify(getProject(),null,2),blob=new Blob([data],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="ventini-production-brief.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+const API_URL="https://ventini-video-api.maciejtrannam.workers.dev";
+async function estimateCost(){
+ const result=$("cost-result");result.textContent="Sprawdzam koszt w Cloudflare...";
+ try{
+  const response=await fetch(API_URL+"/estimate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:$("runway-model").value,duration:Number($("clip-duration").value)})});
+  const data=await response.json();if(!response.ok)throw new Error(data.error||"Błąd API");
+  result.textContent="Szacowany koszt: "+Number(data.estimatedCostUSD).toFixed(2)+" USD / klip. Limit: "+data.maxCostUSD+" USD. "+(data.allowed?"W limicie.":"Przekroczony limit.")+" Generowanie: wyłączone.";
+ }catch(error){result.textContent="Nie udało się połączyć z kalkulatorem. "+error.message+" Jeśli pojawia się ekran logowania Cloudflare Access, potrzebna będzie dodatkowa konfiguracja dostępu."}
+}
 </script></body></html>
