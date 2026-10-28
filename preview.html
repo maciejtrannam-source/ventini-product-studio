@@ -13,6 +13,9 @@ const $=id=>document.getElementById(id),params=new URLSearchParams(location.sear
 let products=[];try{products=JSON.parse(localStorage.getItem("ventini-catalog-v1")||"[]")}catch{}
 const product=products.find(p=>String(p.id)===params.get("productId"))||products.find(p=>p.name===params.get("product"))||null;
 const title=product?.name||params.get("product")||"VENTINI";
+if(["nl","pl","en","fr"].includes(params.get("language")))$("language").value=params.get("language");
+if(["wide","vertical","square"].includes(params.get("format")))$("format").value=params.get("format");
+$("stage").className="stage "+($("format").value==="wide"?"":$("format").value);
 $("productName").textContent=title;
 const words={
 nl:["Frisse lucht. Meer comfort.","Ontdek de slimme oplossing","Ontworpen voor comfort","Comfort in elk seizoen","Ontdek VENTINI"],
