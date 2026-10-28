@@ -80,11 +80,11 @@ $("jsonFile").onchange=async(e)=>{
  finally{e.target.value=""}
 };
 
-function parseCSV(text){
+function parseCSV(text,delimiter=","){
  text=text.replace(/^\uFEFF/,"");const rows=[];let row=[],cell="",quoted=false;
  for(let i=0;i<text.length;i++){const ch=text[i];
  if(quoted){if(ch==='"'&&text[i+1]==='"'){cell+='"';i++}else if(ch==='"')quoted=false;else cell+=ch}
- else if(ch==='"')quoted=true;else if(ch===','){row.push(cell);cell=""}
+ else if(ch==='"')quoted=true;else if(ch===delimiter){row.push(cell);cell=""}
  else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v!==""))rows.push(row);row=[];cell=""}
  else cell+=ch}
  if(quoted)throw Error("Niepoprawne cudzysłowy w pliku CSV");
@@ -96,12 +96,12 @@ $("csvFile").onchange=async e=>{
  const file=e.target.files&&e.target.files[0];if(!file)return;
  const status=$("importStatus");status.textContent="Odczytywanie pliku CSV…";
  try{
- const rows=parseCSV(await file.text());if(rows.length<2)throw Error("Plik CSV jest pusty");
- const headers=rows.shift().map(h=>h.trim().toLowerCase());
+ const raw=await file.text();let rows=parseCSV(raw,",");if((rows[0]||[]).length<2){const semi=parseCSV(raw,";");if((semi[0]||[]).length>1)rows=semi;else{const tabs=parseCSV(raw,"\t");if((tabs[0]||[]).length>1)rows=tabs}}if(rows.length<2)throw Error("Plik CSV jest pusty");
+ const headers=rows.shift().map(h=>h.replace(/^\uFEFF/,"").trim().toLowerCase());
  const val=(r,...names)=>{for(const n of names){const i=headers.indexOf(n.toLowerCase());if(i>=0)return r[i]||""}return ""};
- if(!headers.includes("id")||!(headers.includes("name")||headers.includes("nazwa")))throw Error("Nie rozpoznano kolumn ID i Name/Nazwa w eksporcie WooCommerce");
- const mapped=rows.filter(r=>val(r,"ID")&&val(r,"Name","Nazwa")).map(r=>{
- const id=val(r,"ID");return {id:"woo-"+id,wooId:id,name:val(r,"Name","Nazwa"),maker:val(r,"Brands","Brand","Marki","Marka")||"Ventini.nl",kind:val(r,"Categories","Kategorie")||"Inne",sku:val(r,"SKU"),description:plain(val(r,"Short description","Krótki opis")||val(r,"Description","Opis")),specs:"",photo:(val(r,"Images","Obrazki","Zdjęcia").split(",")[0]||"").trim()}
+ if(!headers.includes("id")||!(headers.includes("name")||headers.includes("nazwa")||headers.includes("naam")))throw Error("Nie rozpoznano kolumn ID i Name/Nazwa/Naam. Wykryte nagłówki: "+headers.slice(0,12).join(" | ")");
+ const mapped=rows.filter(r=>val(r,"ID")&&val(r,"Name","Nazwa","Naam")).map(r=>{
+ const id=val(r,"ID");return {id:"woo-"+id,wooId:id,name:val(r,"Name","Nazwa"),maker:val(r,"Brands","Brand","Marki","Marka","Merken","Merk")||"Ventini.nl",kind:val(r,"Categories","Kategorie","Categorieën","Categorieen")||"Inne",sku:val(r,"SKU"),description:plain(val(r,"Short description","Krótki opis","Korte beschrijving")||val(r,"Description","Opis","Beschrijving")),specs:"",photo:(val(r,"Images","Obrazki","Zdjęcia","Afbeeldingen").split(",")[0]||"").trim()}
  });
  if(!mapped.length)throw Error("Nie znaleziono produktów w pliku");
  const ids=new Set(mapped.map(p=>p.id));
