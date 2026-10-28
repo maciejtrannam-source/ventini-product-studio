@@ -99,7 +99,7 @@ $("csvFile").onchange=async e=>{
  const raw=await file.text();let rows=parseCSV(raw,",");if((rows[0]||[]).length<2){const semi=parseCSV(raw,";");if((semi[0]||[]).length>1)rows=semi;else{const tabs=parseCSV(raw,"\t");if((tabs[0]||[]).length>1)rows=tabs}}if(rows.length<2)throw Error("Plik CSV jest pusty");
  const headers=rows.shift().map(h=>h.replace(/^\uFEFF/,"").trim().toLowerCase());
  const val=(r,...names)=>{for(const n of names){const i=headers.indexOf(n.toLowerCase());if(i>=0)return r[i]||""}return ""};
- if(!headers.includes("id")||!(headers.includes("name")||headers.includes("nazwa")||headers.includes("naam")))throw Error("Nie rozpoznano kolumn ID i Name/Nazwa/Naam. Wykryte nagłówki: "+headers.slice(0,12).join(" | ")");
+ if(!headers.includes("id")||!(headers.includes("name")||headers.includes("nazwa")||headers.includes("naam")))throw Error("Nie rozpoznano kolumn ID i Name/Nazwa/Naam. Wykryte nagłówki: "+headers.slice(0,12).join(" | "));
  const mapped=rows.filter(r=>val(r,"ID")&&val(r,"Name","Nazwa","Naam")).map(r=>{
  const id=val(r,"ID");return {id:"woo-"+id,wooId:id,name:val(r,"Name","Nazwa","Naam"),maker:val(r,"Brands","Brand","Marki","Marka","Merken","Merk")||"Ventini.nl",kind:val(r,"Categories","Kategorie","Categorieën","Categorieen")||"Inne",sku:val(r,"SKU"),description:plain(val(r,"Short description","Krótki opis","Korte beschrijving")||val(r,"Description","Opis","Beschrijving")),specs:"",photo:(val(r,"Images","Obrazki","Zdjęcia","Afbeeldingen").split(",")[0]||"").trim()}
  });
