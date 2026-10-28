@@ -131,6 +131,24 @@ header{padding:20px}
 
 <script>
 let currentStoryboard="";
+const catalogKey="ventini-catalog-v1";
+function selectCatalogProduct(){
+ const params=new URLSearchParams(location.search);
+ const id=params.get("productId");
+ if(!id)return;
+ let items=[];
+ try{items=JSON.parse(localStorage.getItem(catalogKey)||"[]")}catch{}
+ const selected=Array.isArray(items)?items.find(p=>p.id===id):null;
+ if(!selected){document.getElementById("preview").textContent="Nie znaleziono produktu w lokalnym katalogu. Otwórz katalog i spróbuj ponownie.";return}
+ const select=document.getElementById("product");
+ const option=new Option(selected.name,selected.name,true,true);
+ select.add(option);select.value=selected.name;
+ const preview=document.getElementById("preview");preview.replaceChildren();
+ const title=document.createElement("h3");title.textContent=selected.name;preview.append(title);
+ if(selected.photo&&/^https:\/\//i.test(selected.photo)){const img=document.createElement("img");img.src=selected.photo;img.alt=selected.name;img.style.cssText="width:100%;max-height:230px;object-fit:contain;background:white;border-radius:8px";preview.append(img)}
+ const detail=document.createElement("p");detail.className="info";detail.textContent=[selected.maker,selected.description,selected.specs].filter(Boolean).join(" · ").slice(0,600);preview.append(detail);
+}
+document.addEventListener("DOMContentLoaded",selectCatalogProduct);
 
 const translations={
 nl:["Een frisse start","Slimme ventilatie","Technische werking","Comfort in huis","Ontdek de oplossing"],
@@ -141,6 +159,7 @@ fr:["Un nouveau souffle","Ventilation intelligente","Fonctionnement technique","
 
 function generate(){
 const product=document.getElementById("product").value;
+document.getElementById("scenes").replaceChildren();
 const style=document.getElementById("style").value;
 const language=document.getElementById("language").value;
 const format=document.getElementById("format").value;
