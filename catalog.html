@@ -101,14 +101,14 @@ $("csvFile").onchange=async e=>{
  const val=(r,...names)=>{for(const n of names){const i=headers.indexOf(n.toLowerCase());if(i>=0)return r[i]||""}return ""};
  if(!headers.includes("id")||!(headers.includes("name")||headers.includes("nazwa")||headers.includes("naam")))throw Error("Nie rozpoznano kolumn ID i Name/Nazwa/Naam. Wykryte nagłówki: "+headers.slice(0,12).join(" | ")");
  const mapped=rows.filter(r=>val(r,"ID")&&val(r,"Name","Nazwa","Naam")).map(r=>{
- const id=val(r,"ID");return {id:"woo-"+id,wooId:id,name:val(r,"Name","Nazwa"),maker:val(r,"Brands","Brand","Marki","Marka","Merken","Merk")||"Ventini.nl",kind:val(r,"Categories","Kategorie","Categorieën","Categorieen")||"Inne",sku:val(r,"SKU"),description:plain(val(r,"Short description","Krótki opis","Korte beschrijving")||val(r,"Description","Opis","Beschrijving")),specs:"",photo:(val(r,"Images","Obrazki","Zdjęcia","Afbeeldingen").split(",")[0]||"").trim()}
+ const id=val(r,"ID");return {id:"woo-"+id,wooId:id,name:val(r,"Name","Nazwa","Naam"),maker:val(r,"Brands","Brand","Marki","Marka","Merken","Merk")||"Ventini.nl",kind:val(r,"Categories","Kategorie","Categorieën","Categorieen")||"Inne",sku:val(r,"SKU"),description:plain(val(r,"Short description","Krótki opis","Korte beschrijving")||val(r,"Description","Opis","Beschrijving")),specs:"",photo:(val(r,"Images","Obrazki","Zdjęcia","Afbeeldingen").split(",")[0]||"").trim()}
  });
  if(!mapped.length)throw Error("Nie znaleziono produktów w pliku");
  const ids=new Set(mapped.map(p=>p.id));
  const updated=[...products.filter(p=>!ids.has(p.id)),...mapped];
  try{localStorage.setItem(key,JSON.stringify(updated))}catch{throw Error("Za mało miejsca w pamięci przeglądarki. Do importu całego katalogu potrzebna będzie baza danych. Obecne produkty nie zostały zmienione.")}
  products=updated;filters();render();
- status.textContent="Zaimportowano "+mapped.length+" produktów z CSV.";
+ status.textContent="Zaimportowano "+mapped.length+" produktów z CSV. Jeśli liczba w sklepie jest większa, sprawdź zakres eksportu WooCommerce.";
  }catch(err){status.textContent="Błąd importu CSV: "+err.message}
  finally{e.target.value=""}
 };
