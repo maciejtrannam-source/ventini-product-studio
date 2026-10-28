@@ -106,7 +106,7 @@ header{padding:20px}
 <option value="90">90 seconds</option>
 </select>
 
-<button onclick="generate()">Generate Storyboard</button>
+<button onclick="generate()">Generate Storyboard</button><button class="secondary" onclick="openPreview()">▶ Podgląd reklamy</button>
 </section>
 
 <section class="card">
@@ -255,6 +255,19 @@ if(info?.photo&&info.photo.startsWith("https://")){const img=document.createElem
 document.getElementById("result").style.display="block";
 }
 
+function openPreview(){
+const id=new URLSearchParams(location.search).get("productId");
+const p=document.getElementById("product").value;
+const duration=document.getElementById("duration").value;
+const language=document.getElementById("language").value;
+const format=document.getElementById("format").value;
+const formatValue=format.startsWith("9:16")?"vertical":format.startsWith("1:1")?"square":"wide";
+const url=new URL("preview.html",location.href);
+if(id)url.searchParams.set("productId",id);
+url.searchParams.set("product",p);url.searchParams.set("duration",duration);
+url.searchParams.set("language",language);url.searchParams.set("format",formatValue);
+location.href=url.toString();
+}
 function downloadStoryboard(){
 if(!currentStoryboard)return;
 const blob=new Blob([currentStoryboard],{type:"text/plain;charset=utf-8"});
