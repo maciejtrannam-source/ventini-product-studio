@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VENTINI | Premium Product Collection</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;color:#eaf1fb;font-family:Arial,sans-serif}header{padding:22px 5%;background:#111c2e;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center;gap:15px}.brand{font-size:24px;font-weight:800;letter-spacing:2px}.brand span{color:#38bdf8}a{color:#7dd3fc;text-decoration:none}main{max-width:1200px;margin:auto;padding:30px 20px}h1{margin-bottom:6px}.muted{color:#9aacc4}.toolbar{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:12px;margin:26px 0}input,select,textarea{width:100%;padding:12px;background:#101c2e;color:#fff;border:1px solid #43516a;border-radius:9px;font:inherit}button{padding:12px 16px;border:0;border-radius:9px;background:#0284c7;color:#fff;cursor:pointer;font-weight:700}button:hover{background:#0369a1}.secondary{background:#334155}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card{background:#172235;border:1px solid #334155;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}.card h3{margin:0}.meta{font-size:13px;color:#9fb3cc}.tag{display:inline-block;color:#7dd3fc;background:#10344d;padding:5px 9px;border-radius:20px;font-size:12px}.card p{color:#c5d1e0;line-height:1.45;flex:1}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{padding:9px 12px}.empty{padding:25px;color:#aab7c9}dialog{width:min(650px,94vw);background:#172235;color:#fff;border:1px solid #52617a;border-radius:16px;padding:24px}dialog::backdrop{background:#000a}label{display:block;margin:12px 0 5px;color:#cbd5e1;font-size:14px}.dialog-actions{display:flex;gap:10px;margin-top:20px}.notice{font-size:13px;color:#aab7c9;line-height:1.5}@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.toolbar{grid-template-columns:1fr 1fr}}@media(max-width:600px){.grid,.toolbar{grid-template-columns:1fr}header{flex-wrap:wrap}}
+.card{overflow:hidden}.card h3{line-height:1.3}.card p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.8em}.photo{width:100%;height:190px;object-fit:contain;background:#fff;border-radius:10px}.card .actions{margin-top:auto}.stats{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}.stat{background:#172235;border:1px solid #334155;border-radius:12px;padding:14px 20px}.stat strong{font-size:24px;display:block}.pager{display:flex;align-items:center;justify-content:center;gap:14px;margin:24px 0}.pager button:disabled{opacity:.4;cursor:not-allowed}.detail-grid{display:grid;grid-template-columns:220px 1fr;gap:20px}.detail-grid img{width:100%;max-height:240px;object-fit:contain;background:white;border-radius:10px}.detail-spec{white-space:pre-wrap;overflow-wrap:anywhere}.detail-desc{white-space:pre-wrap;overflow-wrap:anywhere}@media(max-width:600px){.detail-grid{grid-template-columns:1fr}} body{background:#f6f7f8;color:#162a35;font-family:Arial,Helvetica,sans-serif}header{background:#fff;border-bottom:1px solid #e5e9ed;padding:23px max(5%,calc((100% - 1340px)/2))}.brand{color:#152d39}.brand span{color:#008d96}header a{color:#526873}main{max-width:1380px;padding:38px 24px}.muted,.meta,.notice{color:#647784}h1{font-size:clamp(32px,4vw,54px);letter-spacing:-1.6px;font-weight:700;margin:8px 0 12px}.toolbar{grid-template-columns:2fr 1fr 1fr auto}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.card{background:#fff;border:1px solid #e4e9ed;border-radius:16px;padding:14px;box-shadow:0 6px 25px #18323e08;gap:9px;transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-3px);box-shadow:0 14px 35px #18323e16}.card h3{font-size:17px;letter-spacing:-.2px;min-height:44px}.card p{color:#657682;font-size:13px;min-height:0;-webkit-line-clamp:2}.card .photo{height:235px;background:#f7f9fa;object-fit:contain;border-radius:10px}.tag{color:#167f86;background:#e8f5f4}.stat{background:#fff;border:1px solid #e4e9ed;box-shadow:0 4px 14px #18323e08}.stat strong{color:#193643}.stats{margin:24px 0}.toolbar input,.toolbar select,dialog input,dialog select,dialog textarea{background:#fff;color:#213744;border:1px solid #d5dee3}.toolbar button,button{background:#008b91;color:white}.secondary{background:#eaf0f2;color:#28505a}.secondary:hover{background:#dce8ea}.card .actions button{font-size:12px;padding:10px 12px}.card .actions button:hover{filter:brightness(.95)}dialog{background:#fff;color:#1a3542;border-color:#e1e8ed}dialog label{color:#526a77}.hero{background:linear-gradient(115deg,#113743,#1c5760 65%,#188a8e);border-radius:22px;padding:38px 42px;color:white;display:flex;justify-content:space-between;gap:25px;align-items:center}.hero h1{color:white}.hero .muted{color:#c6e1e2}.hero-eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:#93d9d8}.hero-mark{font-size:100px;line-height:1;opacity:.12;font-weight:800;letter-spacing:-10px}.card .actions button[data-action="film"]{display:none}.admin-tools{margin:16px 0;padding:12px 0;border-top:1px solid #e2e8ec}.admin-tools button{font-size:12px}.notice{font-size:12px}.pager{color:#526873}@media(max-width:1150px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:28px}.hero-mark{display:none}}@media(max-width:600px){.grid,.toolbar{grid-template-columns:1fr}.hero{padding:24px}.card .photo{height:250px}} </style></head><body>
+<header><div class="brand">VENTINI<span>.</span> <small style="font-size:12px;letter-spacing:1px">COLLECTION</small></div><a href="#collection">Kolekcja produktów</a></header>
+<main><section class="hero"><div><div class="hero-eyebrow">VENTINI · PREMIUM PRODUCT COLLECTION</div><h1>Technologia komfortu.</h1><p class="muted">Starannie wyselekcjonowane rozwiązania wentylacyjne, klimatyzacyjne i akcesoria dla nowoczesnych wnętrz.</p></div><div class="hero-mark">V.</div></section><div id="collection"><h2 style="font-size:25px;margin:32px 0 0">Odkryj nasze produkty</h2><p class="muted">Przeglądaj kolekcję i poznaj szczegóły techniczne urządzeń.</p></div>
+<div class="stats"><div class="stat"><strong id="totalStat">0</strong><span class="muted">Produktów</span></div><div class="stat"><strong id="brandStat">0</strong><span class="muted">Producentów</span></div><div class="stat"><strong id="categoryStat">0</strong><span class="muted">Kategorii</span></div></div><div class="toolbar"><input id="search" placeholder="Szukaj produktu, modelu lub SKU…" aria-label="Szukaj produktów"><select id="brand" aria-label="Producent"><option value="">Wszyscy producenci</option></select><select id="category" aria-label="Kategoria"><option value="">Wszystkie kategorie</option></select><button id="add" style="display:none">+ Dodaj produkt</button></div>
+<details class="admin-tools"><summary style="cursor:pointer;color:#526873;font-size:13px">Narzędzia zarządzania katalogiem (lokalne)</summary><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0"><button id="importWoo" type="button">↻ Importuj z ventini.nl</button><button id="importJson" type="button" class="secondary">↑ Wczytaj plik JSON</button><input id="jsonFile" type="file" accept=".json,application/json" hidden><button id="importCsv" type="button" class="secondary">↑ Importuj CSV WooCommerce</button><input id="csvFile" type="file" accept=".csv,text/csv" hidden><button id="exportJson" type="button" class="secondary">↓ Eksportuj JSON</button><span id="importStatus" class="muted" role="status" aria-live="polite">Import ręczny · tylko odczyt</span></div></details><p class="muted" id="count"></p><div class="grid" id="products"></div><nav class="pager" aria-label="Strony katalogu"><button class="secondary" id="prevPage" type="button">← Poprzednia</button><span id="pageInfo" aria-live="polite"></span><button class="secondary" id="nextPage" type="button">Następna →</button></nav><p class="notice">Wersja demonstracyjna: dane zapisują się lokalnie w tej przeglądarce. Przy tysiącach produktów pamięć przeglądarki może się zapełnić; docelowo potrzebna będzie baza danych. Nie jest to jeszcze wspólna baza danych ani synchronizacja z WooCommerce. Nie wprowadzaj danych poufnych.</p>
+</main>
+<dialog id="editor"><form id="form"><h2 id="formTitle">Produkt</h2><input type="hidden" id="id">
+<label>Nazwa produktu *</label><input id="name" required maxlength="180">
+<label>Producent *</label><input id="maker" required maxlength="100">
+<label>Kategoria *</label><select id="kind" required><option>Wentylacja decentralna</option><option>Klimatyzacja monoblokowa</option><option>Klimatyzacja przenośna</option><option>Akcesoria</option><option>Inne</option></select>
+<label>SKU / kod produktu</label><input id="sku" maxlength="100">
+<label>Opis</label><textarea id="description" rows="3" maxlength="1500"></textarea>
+<label>Parametry techniczne (tekst)</label><textarea id="specs" rows="3" maxlength="1500"></textarea>
+<label>Adres zdjęcia produktu (https://)</label><input id="photo" type="url" placeholder="https://...">
+<div class="dialog-actions"><button type="submit">Zapisz</button><button class="secondary" type="button" id="cancel">Anuluj</button></div></form></dialog>
+<dialog id="details"><h2 id="detailTitle"></h2><div id="detailContent"></div><div class="dialog-actions"><button class="secondary" id="closeDetails" type="button">Zamknij</button></div></dialog>
+<script>
+const initial=[
+{name:"ASPIRA ECOCOMFORT 3.0 SMART",maker:"ASPIRA / Fantini Cosmi",kind:"Wentylacja decentralna",sku:"",description:"Decentralny system wentylacji z odzyskiem ciepła.",specs:"Dane techniczne wymagają potwierdzenia dla konkretnej wersji.",photo:""},
+{name:"ASPIRA ECOCOMFORT PLUS 100",maker:"ASPIRA / Fantini Cosmi",kind:"Wentylacja decentralna",sku:"",description:"Wentylator decentralny z odzyskiem ciepła.",specs:"Do uzupełnienia na podstawie dokumentacji producenta.",photo:""},
+{name:"ASPIRA ECOCOMFORT PLUS 160",maker:"ASPIRA / Fantini Cosmi",kind:"Wentylacja decentralna",sku:"",description:"Wentylator decentralny z odzyskiem ciepła.",specs:"Do uzupełnienia na podstawie dokumentacji producenta.",photo:""},
+{name:"Blauberg Vento Expert A100-1 Pro WiFi",maker:"Blauberg",kind:"Wentylacja decentralna",sku:"",description:"System wentylacji decentralnej z obsługą Wi-Fi.",specs:"Do uzupełnienia.",photo:""},
+{name:"Blauberg Vento inHome WiFi",maker:"Blauberg",kind:"Wentylacja decentralna",sku:"",description:"Decentralna wentylacja z Wi-Fi.",specs:"Do uzupełnienia.",photo:""},
+{name:"Olimpia Splendid UNICO EVO 25 HP",maker:"Olimpia Splendid",kind:"Klimatyzacja monoblokowa",sku:"",description:"Klimatyzator monoblokowy bez jednostki zewnętrznej.",specs:"Do uzupełnienia.",photo:""},
+{name:"Olimpia Splendid UNICO PRO EVA 35 HP",maker:"Olimpia Splendid",kind:"Klimatyzacja monoblokowa",sku:"",description:"Klimatyzator monoblokowy.",specs:"Do uzupełnienia.",photo:""}
+].map((p,i)=>({...p,id:"demo-"+i}));
+const key="ventini-catalog-v1";let products;try{const saved=JSON.parse(localStorage.getItem(key));products=Array.isArray(saved)?saved:initial}catch{products=initial}
+const $=id=>document.getElementById(id);let currentPage=1;const PAGE_SIZE=48;
+function save(){try{localStorage.setItem(key,JSON.stringify(products))}catch{alert("Nie udało się zapisać danych w przeglądarce.")}}
+function filters(){const b=$("brand").value,c=$("category").value;const brands=[...new Set(products.map(p=>p.maker))].sort(),cats=[...new Set(products.map(p=>p.kind))].sort();$("brand").replaceChildren(new Option("Wszyscy producenci",""),...brands.map(v=>new Option(v,v)));$("category").replaceChildren(new Option("Wszystkie kategorie",""),...cats.map(v=>new Option(v,v)));$("brand").value=brands.includes(b)?b:"";$("category").value=cats.includes(c)?c:""}
+function render(){const q=$("search").value.toLowerCase(),b=$("brand").value,c=$("category").value;const shown=products.filter(p=>(!b||p.maker===b)&&(!c||p.kind===c)&&[p.name,p.maker,p.description,p.sku].join(" ").toLowerCase().includes(q));$("count").textContent="Produkty: "+shown.length+" / "+products.length;$("totalStat").textContent=products.length;$("brandStat").textContent=new Set(products.map(p=>p.maker).filter(Boolean)).size;$("categoryStat").textContent=new Set(products.map(p=>p.kind).filter(Boolean)).size;const pages=Math.max(1,Math.ceil(shown.length/PAGE_SIZE));currentPage=Math.min(currentPage,pages);$("pageInfo").textContent="Strona "+currentPage+" z "+pages;$("prevPage").disabled=currentPage<=1;$("nextPage").disabled=currentPage>=pages;$("products").replaceChildren();if(!shown.length){const p=document.createElement("p");p.className="empty";p.textContent="Nie znaleziono produktów."; $("products").append(p)}
+shown.slice((currentPage-1)*PAGE_SIZE,currentPage*PAGE_SIZE).forEach(p=>{const card=document.createElement("article");card.className="card";const tag=document.createElement("span");tag.className="tag";tag.textContent=p.kind;const title=document.createElement("h3");title.textContent=p.name;const meta=document.createElement("div");meta.className="meta";meta.textContent=p.maker+(p.sku?" · SKU: "+p.sku:"");const desc=document.createElement("p");desc.textContent=p.description||"Brak opisu";const specs=document.createElement("div");specs.className="meta";specs.textContent=p.specs||"";const actions=document.createElement("div");actions.className="actions";const edit=document.createElement("button");edit.textContent="Edytuj";edit.onclick=()=>openEditor(p);const del=document.createElement("button");del.className="secondary";del.textContent="Usuń";del.onclick=()=>{if(confirm("Usunąć produkt „"+p.name+"”?")){products=products.filter(x=>x.id!==p.id);save();filters();render()}};const details=document.createElement("button");details.className="secondary";details.textContent="Zobacz produkt";details.onclick=()=>showDetails(p);actions.append(details);card.append(tag,title,meta,desc);if(p.photo&&/^https:\/\//i.test(p.photo)){const img=document.createElement("img");img.src=p.photo;img.alt=p.name;img.loading="lazy";img.className="photo";img.onerror=()=>img.remove();card.insertBefore(img,desc)}card.append(actions);$("products").append(card)})}
+function showDetails(p){$("detailTitle").textContent=p.name;const wrap=$("detailContent");wrap.replaceChildren();const grid=document.createElement("div");grid.className="detail-grid";const left=document.createElement("div"),right=document.createElement("div");if(p.photo&&/^https:\/\//i.test(p.photo)){const img=document.createElement("img");img.src=p.photo;img.alt=p.name;img.onerror=()=>img.remove();left.append(img)}else{left.textContent="Brak zdjęcia"};for(const [label,value] of [["Producent",p.maker],["Kategoria",p.kind],["SKU",p.sku],["Opis",p.description],["Parametry",p.specs]]){const h=document.createElement("h3");h.textContent=label;const v=document.createElement("div");v.className=label==="Parametry"?"detail-spec":"detail-desc";v.textContent=value||"Brak danych";right.append(h,v)}grid.append(left,right);wrap.append(grid);$("details").showModal()}
+$("closeDetails").onclick=()=>$("details").close();
+$("prevPage").onclick=()=>{if(currentPage>1){currentPage--;render();window.scrollTo({top:0,behavior:"smooth"})}};
+$("nextPage").onclick=()=>{currentPage++;render();window.scrollTo({top:0,behavior:"smooth"})};
+$("exportJson").onclick=()=>{const blob=new Blob([JSON.stringify(products,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="ventini-katalog-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+function openEditor(p){$("form").reset();$("id").value=p?.id||"";$("formTitle").textContent=p?"Edytuj produkt":"Dodaj produkt";for(const [field,prop] of [["name","name"],["maker","maker"],["kind","kind"],["sku","sku"],["description","description"],["specs","specs"],["photo","photo"]])if(p)$(field).value=p[prop]||"";$("editor").showModal()}
+$("form").onsubmit=e=>{e.preventDefault();const id=$("id").value||("custom-"+Date.now()+"-"+Math.random().toString(36).slice(2));const p={id,name:$("name").value.trim(),maker:$("maker").value.trim(),kind:$("kind").value,sku:$("sku").value.trim(),description:$("description").value.trim(),specs:$("specs").value.trim(),photo:$("photo").value.trim()};if(!p.name||!p.maker)return;if(p.photo&&!/^https:\/\//i.test(p.photo)){alert("Zdjęcie musi mieć adres https://");return}const idx=products.findIndex(x=>x.id===id);if(idx<0)products.push(p);else products[idx]=p;save();$("editor").close();filters();render()};
+$("add").onclick=()=>openEditor(null);$("cancel").onclick=()=>$("editor").close();["search","brand","category"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",()=>{currentPage=1;render()}));filters();render();
+
+function plain(html){const el=document.createElement("div");el.innerHTML=html||"";return (el.textContent||"").trim().slice(0,1500)}
+function wooMap(p){return {id:"woo-"+p.id,wooId:p.id,name:p.name||"Produkt bez nazwy",maker:(p.brands&&p.brands[0]&&p.brands[0].name)||"Ventini.nl",kind:(p.categories&&p.categories[0]&&p.categories[0].name)||"Inne",sku:p.sku||"",description:plain(p.short_description||p.description),specs:(p.attributes||[]).map(a=>a.name+": "+(a.terms||[]).map(t=>t.name).join(", ")).join(" | ").slice(0,1500),photo:(p.images&&p.images[0]&&p.images[0].src)||""}}
+$("importWoo").onclick=async()=>{
+ const btn=$("importWoo"),status=$("importStatus");
+ btn.disabled=true;status.textContent="Łączenie z WooCommerce…";
+ try{
+ let all=[];
+ for(let page=1;page<=30;page++){
+ const url="https://ventini.nl/wp-json/wc/store/v1/products?per_page=100&page="+page;
+ const response=await fetch(url,{headers:{"Accept":"application/json"}});
+ if(!response.ok)throw Error("HTTP "+response.status);
+ const items=await response.json();
+ if(!Array.isArray(items))throw Error("Nieprawidłowy format odpowiedzi");
+ all.push(...items);status.textContent="Pobrano "+all.length+" produktów…";
+ if(items.length<100)break;
+ if(page===30)throw Error("Limit 3000 produktów; import przerwany bez zapisu");
+ }
+ if(!all.length){status.textContent="Nie znaleziono opublikowanych produktów.";return}
+ const mapped=all.map(wooMap);
+ const ids=new Set(mapped.map(p=>p.id));
+ const other=products.filter(p=>!ids.has(p.id));
+ products=[...other,...mapped];save();filters();render();
+ status.textContent="Zaimportowano / zaktualizowano "+mapped.length+" produktów. Zapis lokalny.";
+ }catch(err){status.textContent="Nie udało się pobrać produktów: "+err.message+". Możliwe blokowanie CORS lub API."}
+ finally{btn.disabled=false}
+};
+
+$("importJson").onclick=()=>$("jsonFile").click();
+$("jsonFile").onchange=async(e)=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ const status=$("importStatus");
+ try{
+ const data=JSON.parse(await file.text());
+ if(!Array.isArray(data))throw Error("Plik musi zawierać tablicę produktów");
+ if(!data.length){status.textContent="Plik nie zawiera produktów.";return}
+ const isStore=data.every(p=>p&&typeof p==="object"&&Number.isInteger(p.id)&&typeof p.name==="string");const isCatalog=data.every(p=>p&&typeof p==="object"&&typeof p.id==="string"&&typeof p.name==="string");if(!isStore&&!isCatalog)throw Error("Nie rozpoznano formatu JSON katalogu ani WooCommerce Store API");
+ const mapped=isStore?data.map(wooMap):data,ids=new Set(mapped.map(p=>p.id));
+ products=[...products.filter(p=>!ids.has(p.id)),...mapped];save();filters();render();
+ status.textContent="Wczytano "+mapped.length+" produktów z pliku JSON.";
+ }catch(err){status.textContent="Błąd pliku JSON: "+err.message}
+ finally{e.target.value=""}
+};
+
+function parseCSV(text,delimiter=","){
+ text=text.replace(/^\uFEFF/,"");const rows=[];let row=[],cell="",quoted=false;
+ for(let i=0;i<text.length;i++){const ch=text[i];
+ if(quoted){if(ch==='"'&&text[i+1]==='"'){cell+='"';i++}else if(ch==='"')quoted=false;else cell+=ch}
+ else if(ch==='"')quoted=true;else if(ch===delimiter){row.push(cell);cell=""}
+ else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v!==""))rows.push(row);row=[];cell=""}
+ else cell+=ch}
+ if(quoted)throw Error("Niepoprawne cudzysłowy w pliku CSV");
+ if(cell!==""||row.length){row.push(cell);rows.push(row)}
+ return rows;
+}
+$("importCsv").onclick=()=>$("csvFile").click();
+$("csvFile").onchange=async e=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ const status=$("importStatus");status.textContent="Odczytywanie pliku CSV…";
+ try{
+ const raw=await file.text();let rows=parseCSV(raw,",");if((rows[0]||[]).length<2){const semi=parseCSV(raw,";");if((semi[0]||[]).length>1)rows=semi;else{const tabs=parseCSV(raw,"\t");if((tabs[0]||[]).length>1)rows=tabs}}if(rows.length<2)throw Error("Plik CSV jest pusty");
+ const headers=rows.shift().map(h=>h.replace(/^\uFEFF/,"").trim().toLowerCase());
+ const val=(r,...names)=>{for(const n of names){const i=headers.indexOf(n.toLowerCase());if(i>=0)return r[i]||""}return ""};
+ if(!headers.includes("id")||!(headers.includes("name")||headers.includes("nazwa")||headers.includes("naam")))throw Error("Nie rozpoznano kolumn ID i Name/Nazwa/Naam. Wykryte nagłówki: "+headers.slice(0,12).join(" | "));
+ const mapped=rows.filter(r=>val(r,"ID")&&val(r,"Name","Nazwa","Naam")).map(r=>{
+ const id=val(r,"ID");return {id:"woo-"+id,wooId:id,name:val(r,"Name","Nazwa","Naam"),maker:val(r,"Brands","Brand","Marki","Marka","Merken","Merk")||"Ventini.nl",kind:val(r,"Categories","Kategorie","Categorieën","Categorieen")||"Inne",sku:val(r,"SKU"),description:plain(val(r,"Short description","Krótki opis","Korte beschrijving")||val(r,"Description","Opis","Beschrijving")),specs:headers.filter(h=>/^attribute \d+ name$/.test(h)).map(h=>{const num=h.match(/\d+/)[0];const n=val(r,h);const v=val(r,"Attribute "+num+" value(s)");return n&&v?n+": "+v:""}).filter(Boolean).join(" | ").slice(0,1500),photo:(val(r,"Images","Obrazki","Zdjęcia","Afbeeldingen").split(",")[0]||"").trim()}
+ });
+ if(!mapped.length)throw Error("Nie znaleziono produktów w pliku");
+ const ids=new Set(mapped.map(p=>p.id));
+ const updated=[...products.filter(p=>!ids.has(p.id)),...mapped];
+ try{localStorage.setItem(key,JSON.stringify(updated))}catch{throw Error("Za mało miejsca w pamięci przeglądarki. Do importu całego katalogu potrzebna będzie baza danych. Obecne produkty nie zostały zmienione.")}
+ products=updated;filters();render();
+ status.textContent="Zaimportowano "+mapped.length+" produktów z CSV. Jeśli liczba w sklepie jest większa, sprawdź zakres eksportu WooCommerce.";
+ }catch(err){status.textContent="Błąd importu CSV: "+err.message}
+ finally{e.target.value=""}
+};
+</script></body></html>
