@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VENTINI — Podgląd reklamy</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;color:#f8fafc;font-family:Arial,sans-serif}header{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;border-bottom:1px solid #334155}a{color:#7dd3fc;text-decoration:none}.brand{font-size:26px;font-weight:800;letter-spacing:2px}.brand b{color:#38bdf8}main{max-width:1100px;margin:auto;padding:28px 18px}h1{font-size:27px}.muted{color:#a9b8cc}select,button{padding:12px 15px;border-radius:9px;border:1px solid #45556c;background:#172235;color:white;font-size:15px}button{background:#0284c7;border:0;cursor:pointer;font-weight:700}button:disabled{opacity:.5}label{margin-right:8px}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0}.stage{position:relative;margin:auto;background:linear-gradient(135deg,#14283d,#08111f 70%);border:1px solid #39506b;border-radius:18px;overflow:hidden;aspect-ratio:16/9;max-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center}.stage.vertical{aspect-ratio:9/16;max-width:390px;max-height:none}.stage.square{aspect-ratio:1/1;max-width:650px}.stage:before{content:"";position:absolute;width:75%;height:75%;border-radius:50%;background:#1b7192;filter:blur(95px);opacity:.22;top:5%}.content{position:relative;z-index:1;width:90%;padding:20px;animation:fade .65s ease}.content img{max-width:60%;max-height:36vh;object-fit:contain;background:white;border-radius:12px;padding:10px;box-shadow:0 12px 35px #0006}.vertical .content img{max-width:88%}.content h2{font-size:clamp(19px,3vw,38px);margin:15px auto;max-width:780px}.content p{font-size:clamp(13px,1.7vw,21px);color:#d1e9f4;line-height:1.45;max-width:800px;margin:10px auto}.pill{display:inline-block;color:#7dd3fc;letter-spacing:2px;text-transform:uppercase;font-size:12px;font-weight:bold}.progress{height:6px;background:#25364c;border-radius:5px;overflow:hidden;margin:17px 0}.progress div{height:100%;width:0;background:#38bdf8;transition:width .15s linear}.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.timeline button{font-size:12px;background:#1d3045;padding:11px 4px}.timeline button.active{background:#0369a1}.info{font-size:13px;color:#9eafc4;margin-top:18px;line-height:1.5}@keyframes fade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}@media(max-width:600px){.timeline button{font-size:10px}header{padding:14px}.stage{min-height:300px}}
+</style></head><body><header><div class="brand">VENTINI<b>.</b></div><a href="catalog-v2.html">← Katalog produktów</a></header><main>
+<h1>Podgląd reklamy <span style="color:#7dd3fc">2.0</span></h1><p class="muted" id="productName">Wybierz produkt w katalogu, aby zobaczyć jego reklamę.</p>
+<div class="controls"><label for="language">Język</label><select id="language"><option value="nl">Nederlands</option><option value="pl">Polski</option><option value="en">English</option><option value="fr">Français</option></select><label for="format">Format</label><select id="format"><option value="wide">16:9</option><option value="vertical">9:16</option><option value="square">1:1</option></select><button id="play">▶ Odtwórz</button><button id="restart">↺ Od początku</button></div>
+<div id="stage" class="stage"><div id="content" class="content"></div></div>
+<div class="progress"><div id="bar"></div></div><div id="timeline" class="timeline"></div><p id="time" class="muted"></p>
+<p class="info">To animowany podgląd w przeglądarce, nie plik MP4 ani wygenerowana animacja 3D. Zdjęcia i parametry pochodzą z lokalnego katalogu WooCommerce; przed publikacją reklamy sprawdź poprawność danych technicznych.</p>
+</main><script>
+const $=id=>document.getElementById(id),params=new URLSearchParams(location.search);
+let products=[];try{products=JSON.parse(localStorage.getItem("ventini-catalog-v1")||"[]")}catch{}
+const product=products.find(p=>String(p.id)===params.get("productId"))||products.find(p=>p.name===params.get("product"))||null;
+const title=product?.name||params.get("product")||"VENTINI";
+$("productName").textContent=title;
+const words={
+nl:["Frisse lucht. Meer comfort.","Ontdek de slimme oplossing","Ontworpen voor comfort","Comfort in elk seizoen","Ontdek VENTINI"],
+pl:["Świeże powietrze. Większy komfort.","Poznaj inteligentne rozwiązanie","Zaprojektowane dla komfortu","Komfort przez cały rok","Odkryj VENTINI"],
+en:["Fresh air. More comfort.","Discover a smarter solution","Designed for comfort","Comfort throughout the year","Discover VENTINI"],
+fr:["Un air frais. Plus de confort.","Découvrez une solution intelligente","Conçu pour votre confort","Le confort toute l'année","Découvrez VENTINI"]
+};
+const subtitles={
+nl:["Een nieuwe kijk op comfortabel wonen.","Een productpresentatie met echte productfoto.","Belangrijke gegevens uit de productcatalogus.","Slim en stijlvol in uw interieur.","Bekijk het assortiment op ventini.nl"],
+pl:["Nowe spojrzenie na komfort w domu.","Prezentacja z rzeczywistym zdjęciem produktu.","Najważniejsze informacje z katalogu.","Nowoczesne rozwiązanie do Twojego wnętrza.","Sprawdź ofertę na ventini.nl"],
+en:["A fresh approach to home comfort.","Product showcase using its real image.","Key information from the product catalog.","A modern addition to your home.","Explore the range at ventini.nl"],
+fr:["Une nouvelle vision du confort à la maison.","Présentation avec la véritable photo du produit.","Informations clés du catalogue.","Une solution moderne pour votre intérieur.","Découvrez la gamme sur ventini.nl"]
+};
+let scene=0,elapsed=0,playing=false,last=0,frame=0;
+const duration=Math.max(15,Math.min(90,Number(params.get("duration"))||30)),segment=duration/5;
+function safeText(v){return String(v||"").replace(/<[^>]*>/g," ").replace(/\\n/g," ").replace(/\s+/g," ").trim()}
+function info(){const raw=safeText(product?.specs||product?.description||"");return raw.slice(0,175)}
+function draw(){
+const lang=$("language").value,w=words[lang],subs=subtitles[lang],root=$("content");root.replaceChildren();
+const label=document.createElement("span");label.className="pill";label.textContent="VENTINI • "+(scene+1)+"/5";root.append(label);
+if(scene===1||scene===2||scene===3){
+if(product?.photo&&/^https:\/\//i.test(product.photo)){const img=document.createElement("img");img.src=product.photo;img.alt=title;img.onerror=()=>img.remove();root.append(document.createElement("div"),img)}
+}
+const h=document.createElement("h2");h.textContent=scene===1?title:w[scene];root.append(h);
+const p=document.createElement("p");p.textContent=scene===2&&info()?info():subs[scene];root.append(p);
+$("bar").style.width=(elapsed/duration*100)+"%";
+$("time").textContent=Math.floor(elapsed)+" / "+duration+" s";
+[...$("timeline").children].forEach((b,i)=>b.classList.toggle("active",i===scene));
+}
+for(let i=0;i<5;i++){const b=document.createElement("button");b.textContent="Scena "+(i+1);b.onclick=()=>{elapsed=i*segment;scene=i;draw()};$("timeline").append(b)}
+function tick(now){if(!playing)return;if(last)elapsed+=(now-last)/1000;last=now;if(elapsed>=duration){elapsed=duration;playing=false;$("play").textContent="▶ Odtwórz"}scene=Math.min(4,Math.floor(elapsed/segment));draw();if(playing)frame=requestAnimationFrame(tick)}
+$("play").onclick=()=>{if(playing){playing=false;cancelAnimationFrame(frame);$("play").textContent="▶ Odtwórz"}else{if(elapsed>=duration)elapsed=0;playing=true;last=0;$("play").textContent="⏸ Pauza";frame=requestAnimationFrame(tick)}};
+$("restart").onclick=()=>{elapsed=0;scene=0;last=0;draw()};
+$("language").onchange=draw;$("format").onchange=()=>{$("stage").className="stage "+($("format").value==="wide"?"":$("format").value)};
+draw();
+</script></body></html>
