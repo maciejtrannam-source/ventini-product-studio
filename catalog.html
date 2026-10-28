@@ -6,7 +6,7 @@
 <header><div class="brand">VENTINI<span>.</span> <small style="font-size:13px;letter-spacing:0">PRODUCT STUDIO</small></div><a href="index.html">← Video Studio</a></header>
 <main><h1>Biblioteka produktów</h1><p class="muted">Katalog urządzeń do projektów filmowych i prezentacji technicznych.</p>
 <div class="toolbar"><input id="search" placeholder="Szukaj nazwy, marki lub opisu…" aria-label="Szukaj produktów"><select id="brand" aria-label="Producent"><option value="">Wszyscy producenci</option></select><select id="category" aria-label="Kategoria"><option value="">Wszystkie kategorie</option></select><button id="add">+ Dodaj produkt</button></div>
-<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px"><button id="importWoo" type="button">↻ Importuj z ventini.nl</button><span id="importStatus" class="muted" role="status" aria-live="polite">Import ręczny · tylko odczyt</span></div><p class="muted" id="count"></p><div class="grid" id="products"></div><p class="notice">Wersja demonstracyjna: zmiany zapisują się wyłącznie w tej przeglądarce na tym urządzeniu. Nie jest to jeszcze wspólna baza danych ani synchronizacja z WooCommerce. Nie wprowadzaj danych poufnych.</p>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px"><button id="importWoo" type="button">↻ Importuj z ventini.nl</button><button id="importJson" type="button" class="secondary">↑ Wczytaj plik JSON</button><input id="jsonFile" type="file" accept=".json,application/json" hidden><span id="importStatus" class="muted" role="status" aria-live="polite">Import ręczny · tylko odczyt</span></div><p class="muted" id="count"></p><div class="grid" id="products"></div><p class="notice">Wersja demonstracyjna: zmiany zapisują się wyłącznie w tej przeglądarce na tym urządzeniu. Nie jest to jeszcze wspólna baza danych ani synchronizacja z WooCommerce. Nie wprowadzaj danych poufnych.</p>
 </main>
 <dialog id="editor"><form id="form"><h2 id="formTitle">Produkt</h2><input type="hidden" id="id">
 <label>Nazwa produktu *</label><input id="name" required maxlength="180">
@@ -62,5 +62,21 @@ $("importWoo").onclick=async()=>{
  status.textContent="Zaimportowano / zaktualizowano "+mapped.length+" produktów. Zapis lokalny.";
  }catch(err){status.textContent="Nie udało się pobrać produktów: "+err.message+". Możliwe blokowanie CORS lub API."}
  finally{btn.disabled=false}
+};
+
+$("importJson").onclick=()=>$("jsonFile").click();
+$("jsonFile").onchange=async(e)=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ const status=$("importStatus");
+ try{
+ const data=JSON.parse(await file.text());
+ if(!Array.isArray(data))throw Error("Plik musi zawierać tablicę produktów");
+ if(!data.length){status.textContent="Plik nie zawiera produktów.";return}
+ if(!data.every(p=>p&&typeof p==="object"&&Number.isInteger(p.id)&&typeof p.name==="string"))throw Error("To nie jest lista produktów WooCommerce Store API");
+ const mapped=data.map(wooMap),ids=new Set(mapped.map(p=>p.id));
+ products=[...products.filter(p=>!ids.has(p.id)),...mapped];save();filters();render();
+ status.textContent="Wczytano "+mapped.length+" produktów z pliku JSON.";
+ }catch(err){status.textContent="Błąd pliku JSON: "+err.message}
+ finally{e.target.value=""}
 };
 </script></body></html>
